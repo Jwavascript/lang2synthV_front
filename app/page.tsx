@@ -19,7 +19,6 @@ interface HistoryItem {
 export default function IPAConverter() {
   const [input, setInput] = useState<string>(""); // 입력값 상태
   const [results, setResults] = useState<ConversionResult[]>([]); // 변환 결과 상태
-  const [ipaInput, setIPAInput] = useState<string>(""); // IPA 변환 결과 상태
   const [history, setHistory] = useState<HistoryItem[]>([]); // 변환 이력 상태
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false); // 사이드바 상태
   const [loading, setLoading] = useState<boolean>(false); // 로딩 상태
@@ -49,8 +48,6 @@ export default function IPAConverter() {
         const data = await response.json(); // 응답 데이터 파싱
 
         console.log(data); // 데이터 구조 확인용 콘솔 로그
-
-        setIPAInput(data.ipa); // IPA 변환 결과 저장
         setResults(data.synthv); // SynthV 변환 결과 저장
 
         // 변환 이력 저장
@@ -77,7 +74,6 @@ export default function IPAConverter() {
   const resetState = () => {
     setInput("");
     setResults([]);
-    setIPAInput("");
   };
 
   // IPA 기호 복사 기능

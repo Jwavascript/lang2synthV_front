@@ -1,13 +1,23 @@
 import React from "react";
 import { FiX } from "react-icons/fi";
 
+interface ConversionResult {
+  ipa: string;
+  synthv: string[];
+}
+
+interface HistoryItem {
+  input: string;
+  results: ConversionResult[];
+}
+
 interface SidebarProps {
   sidebarOpen: boolean;
   toggleSidebar: () => void;
-  history: { input: string; results: any[] }[];
+  history: HistoryItem[];
   setInput: (input: string) => void;
-  setResults: (results: any[]) => void;
-  setHistory: (history: any[]) => void;
+  setResults: (results: ConversionResult[]) => void;
+  setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -41,7 +51,9 @@ const Sidebar: React.FC<SidebarProps> = ({
           </span>
           <button
             onClick={() =>
-              setHistory((prev) => prev.filter((_, i) => i !== index))
+              setHistory((prev: HistoryItem[]) =>
+                prev.filter((_, i) => i !== index)
+              )
             }
             className="text-red-400"
           >
