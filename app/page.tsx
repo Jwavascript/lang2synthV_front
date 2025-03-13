@@ -32,12 +32,11 @@ export default function IPAConverter() {
   const handleConvert = async () => {
     if (!input.trim()) return;
 
-    setLoading(true); // 로딩 시작
+    setLoading(true);
 
     try {
       const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/convert`;
 
-      // 백엔드 API 요청
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -45,12 +44,10 @@ export default function IPAConverter() {
       });
 
       if (response.ok) {
-        const data = await response.json(); // 응답 데이터 파싱
+        const data = await response.json();
 
-        console.log(data); // 데이터 구조 확인용 콘솔 로그
-        setResults(data.synthv); // SynthV 변환 결과 저장
+        setResults(data.synthv);
 
-        // 변환 이력 저장
         const updatedHistory = [
           { input, results: data.synthv },
           ...history.filter((item) => item.input !== input).slice(0, 9),
@@ -63,20 +60,16 @@ export default function IPAConverter() {
     } catch (error) {
       console.error("Error:", error);
     } finally {
-      setLoading(false); // 로딩 종료
+      setLoading(false);
     }
   };
 
-  // 사이드바 토글
   const toggleSidebar = () => setSidebarOpen((prev) => !prev);
-
-  // 초기 상태로 리셋
   const resetState = () => {
     setInput("");
     setResults([]);
   };
 
-  // IPA 기호 복사 기능
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(
       () => {
@@ -89,7 +82,7 @@ export default function IPAConverter() {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-gray-100">
       <Sidebar
         sidebarOpen={sidebarOpen}
         toggleSidebar={toggleSidebar}
@@ -99,20 +92,22 @@ export default function IPAConverter() {
         setHistory={setHistory}
       />
       <div
-        className={`flex-1 transition-all duration-300 ml-0 ${
+        className={`flex-1 transition-all duration-300 ${
           sidebarOpen ? "ml-64" : "ml-0"
         }`}
       >
         <Header toggleSidebar={toggleSidebar} resetState={resetState} />
-        <InputSection
-          input={input}
-          setInput={setInput}
-          handleConvert={handleConvert}
-        />
-        {loading && <Loader />}
-        {!loading && results.length > 0 && (
-          <ResultsTable results={results} copyToClipboard={copyToClipboard} />
-        )}
+        <main className="p-4">
+          <InputSection
+            input={input}
+            setInput={setInput}
+            handleConvert={handleConvert}
+          />
+          {loading && <Loader />}
+          {!loading && results.length > 0 && (
+            <ResultsTable results={results} copyToClipboard={copyToClipboard} />
+          )}
+        </main>
       </div>
     </div>
   );

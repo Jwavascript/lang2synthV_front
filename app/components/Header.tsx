@@ -7,17 +7,17 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar, resetState }) => (
-  <div className="p-4 bg-blue-500 text-white flex items-center justify-between">
-    <button onClick={toggleSidebar} className="text-2xl">
+  <header className="p-4 bg-gradient-to-r from-blue-500 to-teal-500 text-white flex items-center justify-between shadow-lg">
+    <button onClick={toggleSidebar} className="text-2xl focus:outline-none">
       <FiMenu />
     </button>
     <h1
-      className="text-3xl font-bold text-center flex-grow cursor-pointer"
+      className="text-3xl font-bold text-center flex-grow cursor-pointer hover:opacity-90 transition"
       onClick={resetState}
     >
       Lang 2 SynthV
     </h1>
-  </div>
+  </header>
 );
 
 export default Header;

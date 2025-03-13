@@ -11,22 +11,23 @@ const InputSection: React.FC<InputSectionProps> = ({
   setInput,
   handleConvert,
 }) => (
-  <div className="p-6 flex flex-col items-center">
+  <section className="p-6 flex flex-col items-center">
     <textarea
-      className="border p-2 w-full max-w-2xl mb-4"
+      className="w-full max-w-2xl p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 resize-none"
       value={input}
       onChange={(e) => setInput(e.target.value)}
       placeholder="Enter text (language auto-detect)"
       maxLength={100}
+      rows={4}
     />
-    <p className="text-sm text-gray-600 mb-4">{input.length}/100</p>
+    <p className="text-sm text-gray-500 mt-2">{input.length}/100</p>
     <button
-      className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition"
+      className="mt-4 bg-blue-500 text-white px-8 py-2 rounded-full shadow-md hover:bg-blue-600 transition transform hover:scale-105"
       onClick={handleConvert}
     >
       Convert
     </button>
-  </div>
+  </section>
 );
 
 export default InputSection;
