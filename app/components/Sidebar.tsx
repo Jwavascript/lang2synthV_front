@@ -1,5 +1,6 @@
 import React from "react";
 import { FiX } from "react-icons/fi";
+import { FaGithub } from "react-icons/fa";
 
 interface ConversionResult {
   ipa: string;
@@ -33,41 +34,56 @@ const Sidebar: React.FC<SidebarProps> = ({
       sidebarOpen ? "translate-x-0" : "-translate-x-64"
     }`}
   >
-    <button
-      onClick={toggleSidebar}
-      className="mb-6 text-white text-2xl focus:outline-none"
-    >
-      <FiX />
-    </button>
-    <h2 className="text-xl font-semibold mb-4">Conversion History</h2>
-    <ul className="space-y-3">
-      {history.map((item, index) => (
-        <li
-          key={index}
-          className="flex justify-between items-center bg-gray-800 p-2 rounded"
+    <div className="flex flex-col h-full justify-between">
+      <div>
+        <button
+          onClick={toggleSidebar}
+          className="mb-6 text-white text-2xl focus:outline-none"
         >
-          <span
-            className="cursor-pointer underline hover:text-blue-400"
-            onClick={() => {
-              setInput(item.input);
-              setResults(item.results);
-            }}
-          >
-            {item.input}
-          </span>
-          <button
-            onClick={() =>
-              setHistory((prev: HistoryItem[]) =>
-                prev.filter((_, i) => i !== index)
-              )
-            }
-            className="text-red-400 hover:text-red-500 focus:outline-none"
-          >
-            <FiX />
-          </button>
-        </li>
-      ))}
-    </ul>
+          <FiX />
+        </button>
+        <h2 className="text-xl font-semibold mb-4">Conversion History</h2>
+        <ul className="space-y-3">
+          {history.map((item, index) => (
+            <li
+              key={index}
+              className="flex justify-between items-center bg-gray-800 p-2 rounded"
+            >
+              <span
+                className="cursor-pointer underline hover:text-blue-400"
+                onClick={() => {
+                  setInput(item.input);
+                  setResults(item.results);
+                }}
+              >
+                {item.input}
+              </span>
+              <button
+                onClick={() =>
+                  setHistory((prev: HistoryItem[]) =>
+                    prev.filter((_, i) => i !== index)
+                  )
+                }
+                className="text-red-400 hover:text-red-500 focus:outline-none"
+              >
+                <FiX />
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="mt-6 flex items-center justify-center space-x-2">
+        <span className="text-sm">made by jwavascript</span>
+        <a
+          href="https://github.com/Jwavascript"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white hover:text-blue-400 text-xl"
+        >
+          <FaGithub />
+        </a>
+      </div>
+    </div>
   </aside>
 );
 

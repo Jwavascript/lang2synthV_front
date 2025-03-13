@@ -17,6 +17,14 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, resetState }) => (
     >
       Lang 2 SynthV
     </h1>
+    <a
+      href="https://jwavascript.github.io/posts/lang2SynthV-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-lg hover:underline"
+    >
+      How to Use
+    </a>
   </header>
 );
 
