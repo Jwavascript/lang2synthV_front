@@ -28,63 +28,68 @@ const Sidebar: React.FC<SidebarProps> = ({
   setInput,
   setResults,
   setHistory,
-}) => (
-  <aside
-    className={`bg-gray-900 text-white w-64 p-6 fixed h-full transition-transform duration-300 z-50 ${
-      sidebarOpen ? "translate-x-0" : "-translate-x-64"
-    }`}
-  >
-    <div className="flex flex-col h-full justify-between">
-      <div>
-        <button
-          onClick={toggleSidebar}
-          className="mb-6 text-white text-2xl focus:outline-none"
-        >
-          <FiX />
-        </button>
-        <h2 className="text-xl font-semibold mb-4">Conversion History</h2>
-        <ul className="space-y-3">
-          {history.map((item, index) => (
-            <li
-              key={index}
-              className="flex justify-between items-center bg-gray-800 p-2 rounded"
-            >
-              <span
-                className="cursor-pointer underline hover:text-blue-400"
-                onClick={() => {
-                  setInput(item.input);
-                  setResults(item.results);
-                }}
+}) => {
+  // 삭제 후 상태 업데이트와 함께 localStorage도 갱신하는 함수
+  const handleDeleteHistoryItem = (index: number) => {
+    const updatedHistory = history.filter((_, i) => i !== index);
+    setHistory(updatedHistory);
+    localStorage.setItem("ipaHistory", JSON.stringify(updatedHistory));
+  };
+
+  return (
+    <aside
+      className={`bg-gray-900 text-white w-64 p-6 fixed h-full transition-transform duration-300 z-50 ${
+        sidebarOpen ? "translate-x-0" : "-translate-x-64"
+      }`}
+    >
+      <div className="flex flex-col h-full justify-between">
+        <div>
+          <button
+            onClick={toggleSidebar}
+            className="mb-6 text-white text-2xl focus:outline-none"
+          >
+            <FiX />
+          </button>
+          <h2 className="text-xl font-semibold mb-4">Conversion History</h2>
+          <ul className="space-y-3">
+            {history.map((item, index) => (
+              <li
+                key={index}
+                className="flex justify-between items-center bg-gray-800 p-2 rounded"
               >
-                {item.input}
-              </span>
-              <button
-                onClick={() =>
-                  setHistory((prev: HistoryItem[]) =>
-                    prev.filter((_, i) => i !== index)
-                  )
-                }
-                className="text-red-400 hover:text-red-500 focus:outline-none"
-              >
-                <FiX />
-              </button>
-            </li>
-          ))}
-        </ul>
+                <span
+                  className="cursor-pointer underline hover:text-blue-400"
+                  onClick={() => {
+                    setInput(item.input);
+                    setResults(item.results);
+                  }}
+                >
+                  {item.input}
+                </span>
+                <button
+                  onClick={() => handleDeleteHistoryItem(index)}
+                  className="text-red-400 hover:text-red-500 focus:outline-none"
+                >
+                  <FiX />
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="mt-6 flex items-center justify-center space-x-2">
+          <span className="text-sm">made by jwavascript</span>
+          <a
+            href="https://github.com/jwavascript"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white hover:text-blue-400 text-xl"
+          >
+            <FaGithub />
+          </a>
+        </div>
       </div>
-      <div className="mt-6 flex items-center justify-center space-x-2">
-        <span className="text-sm">made by jwavascript</span>
-        <a
-          href="https://github.com/Jwavascript"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-white hover:text-blue-400 text-xl"
-        >
-          <FaGithub />
-        </a>
-      </div>
-    </div>
-  </aside>
-);
+    </aside>
+  );
+};
 
 export default Sidebar;
