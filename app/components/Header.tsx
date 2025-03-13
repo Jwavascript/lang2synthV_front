@@ -8,7 +8,10 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar, resetState }) => (
   <header className="p-4 bg-gradient-to-r from-blue-500 to-teal-500 text-white flex items-center justify-between shadow-lg">
-    <button onClick={toggleSidebar} className="text-2xl focus:outline-none">
+    <button
+      onClick={toggleSidebar}
+      className="text-2xl focus:outline-none mr-4"
+    >
       <FiMenu />
     </button>
     <h1
