@@ -9,6 +9,9 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
   results,
   copyToClipboard,
 }) => {
+  const colors = ["bg-blue-100", "bg-green-100", "bg-yellow-100"];
+  let groupIndex = 0;
+
   return (
     <div className="p-6 flex justify-center">
       <div className="overflow-x-auto shadow-lg rounded-lg">
@@ -24,33 +27,43 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
             </tr>
           </thead>
           <tbody>
-            {results.map((result, index) => (
-              <tr
-                key={index}
-                className={`hover:bg-gray-50 transition ${
-                  index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                }`}
-              >
-                <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">
-                  {result.ipa}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">
-                  {result.synthv.map((synthv, synthvIndex) => (
-                    <span
-                      key={synthvIndex}
-                      className="cursor-pointer text-blue-500 hover:underline"
-                      onClick={() => {
-                        const synthvText = synthv.split(" (")[0];
-                        copyToClipboard(synthvText);
-                      }}
-                    >
-                      {synthv}
-                      {synthvIndex < result.synthv.length - 1 && ", "}
-                    </span>
-                  ))}
-                </td>
-              </tr>
-            ))}
+            {results.map((result, index) => {
+              const colorClass =
+                result.ipa === " "
+                  ? "bg-gray-200"
+                  : colors[groupIndex % colors.length];
+
+              // 그룹 구분: ipa가 공백이면 새로운 그룹으로 처리
+              if (result.ipa === " " || result.ipa === ".") {
+                groupIndex++;
+              }
+
+              return (
+                <tr
+                  key={index}
+                  className={`${colorClass} hover:bg-gray-50 transition`}
+                >
+                  <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">
+                    {result.ipa}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">
+                    {result.synthv.map((synthv, synthvIndex) => (
+                      <span
+                        key={synthvIndex}
+                        className="cursor-pointer text-blue-500 hover:underline"
+                        onClick={() => {
+                          const synthvText = synthv.split(" (")[0];
+                          copyToClipboard(synthvText);
+                        }}
+                      >
+                        {synthv}
+                        {synthvIndex < result.synthv.length - 1 && ", "}
+                      </span>
+                    ))}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
