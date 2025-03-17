@@ -3,7 +3,7 @@ import React from "react";
 const Loader: React.FC = () => (
   <div className="flex flex-col justify-center items-center space-y-2 p-4">
     <svg
-      className="animate-spin h-8 w-8 text-blue-500"
+      className="animate-spin h-8 w-8 text-[#7DB235]"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

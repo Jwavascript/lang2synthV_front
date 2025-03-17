@@ -7,15 +7,36 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar, resetState }) => (
-  <header className="p-4 bg-gradient-to-r from-blue-500 to-teal-500 text-white flex items-center justify-between shadow-lg">
+  <header
+    className="
+      p-4
+      bg-gradient-to-r
+      from-[#7DB235]
+      via-[#C6C6C6]
+      to-[#363737]
+      text-white
+      flex
+      items-center
+      justify-between
+      shadow-lg
+    "
+  >
     <button
       onClick={toggleSidebar}
-      className="text-2xl focus:outline-none mr-4"
+      className="text-2xl focus:outline-none mr-14"
     >
       <FiMenu />
     </button>
     <h1
-      className="text-3xl font-bold text-center flex-grow cursor-pointer hover:opacity-90 transition"
+      className="
+        text-3xl
+        font-bold
+        text-center
+        flex-grow
+        cursor-pointer
+        hover:opacity-90
+        transition
+      "
       onClick={resetState}
     >
       Lang 2 SynthV

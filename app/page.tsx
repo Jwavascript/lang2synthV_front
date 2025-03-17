@@ -1,4 +1,6 @@
 "use client";
+import Image from "next/image";
+import mascort from "../public/mascort.png";
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
@@ -82,7 +84,7 @@ export default function IPAConverter() {
   };
 
   return (
-    <div className="flex h-full bg-gray-100">
+    <div className="flex h-full">
       <Sidebar
         sidebarOpen={sidebarOpen}
         toggleSidebar={toggleSidebar}
@@ -97,7 +99,7 @@ export default function IPAConverter() {
         }`}
       >
         <Header toggleSidebar={toggleSidebar} resetState={resetState} />
-        <main className="p-4">
+        <main className="p-4 bg-gray-300">
           <InputSection
             input={input}
             setInput={setInput}
@@ -108,6 +110,23 @@ export default function IPAConverter() {
             <ResultsTable results={results} copyToClipboard={copyToClipboard} />
           )}
         </main>
+        <div
+          style={{
+            width: "0px",
+            height: "0px",
+            marginLeft: "20%",
+            borderTop: "150px solid rgb(209 213 219 / var(--tw-bg-opacity, 1))",
+            borderLeft: "240px solid transparent",
+            borderRight: "90px solid transparent",
+          }}
+        ></div>
+        <Image
+          width={650}
+          height={650}
+          src={mascort}
+          className="m-auto"
+          alt="Picture of the mascort"
+        />
       </div>
     </div>
   );

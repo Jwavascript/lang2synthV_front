@@ -29,7 +29,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   setResults,
   setHistory,
 }) => {
-  // 삭제 후 상태 업데이트와 함께 localStorage도 갱신하는 함수
   const handleDeleteHistoryItem = (index: number) => {
     const updatedHistory = history.filter((_, i) => i !== index);
     setHistory(updatedHistory);
@@ -38,9 +37,18 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`bg-gray-900 text-white w-64 p-6 fixed h-full transition-transform duration-300 z-50 ${
-        sidebarOpen ? "translate-x-0" : "-translate-x-64"
-      }`}
+      className={`
+        bg-[#363737]
+        text-[#C6C6C6]
+        w-64
+        p-6
+        fixed
+        h-full
+        transition-transform
+        duration-300
+        z-50
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-64"}
+      `}
     >
       <div className="flex flex-col h-full justify-between">
         <div>
@@ -55,10 +63,17 @@ const Sidebar: React.FC<SidebarProps> = ({
             {history.map((item, index) => (
               <li
                 key={index}
-                className="flex justify-between items-center bg-gray-800 p-2 rounded"
+                className="
+                  flex
+                  justify-between
+                  items-center
+                  bg-[#2F2F2F]
+                  p-2
+                  rounded
+                "
               >
                 <span
-                  className="cursor-pointer underline hover:text-blue-400"
+                  className="cursor-pointer underline hover:text-[#7DB235]"
                   onClick={() => {
                     setInput(item.input);
                     setResults(item.results);
@@ -82,7 +97,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             href="https://github.com/jwavascript"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-blue-400 text-xl"
+            className="text-white hover:text-[#7DB235] text-xl"
           >
             <FaGithub />
           </a>
